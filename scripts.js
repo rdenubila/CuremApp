@@ -368,6 +368,16 @@ function recuperarSenha(){
 
 }
 
+
+// EVENTOS
+
+document.addEventListener("backbutton", function(){
+	alert("Voltar");
+	mainView.router.back();
+}, false);
+
+
+
 $( document ).ready(function() {
 
 });
