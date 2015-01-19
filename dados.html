@@ -1,0 +1,105 @@
+<!-- Top Navbar-->
+<div class="navbar">
+  <div class="navbar-inner">
+
+    <div class="left">
+      <a href="#" class="link icon-only back"> <i class="icon-chevron-left"></i></a>
+    </div>
+
+    <div class="center sliding"><img src="img/logo_curem.png" height="25"></div>
+
+    <!-- <div class="right">
+       <a href="#" class="link icon-only"> <i class="icon-search"></i></a>
+    </div> -->
+
+  </div>
+</div>
+
+<!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+<div class="pages navbar-through">
+  
+  <!-- Page, data-page contains page name-->
+  <div data-page="dados" class="page">
+
+    <div class="page-content">
+
+      <div class="content-block">
+        <div class="row" id="">
+          
+          <h2>Meus Dados</h2>
+
+          <div class="carregando"><i class="icon-spinner"></i></div>
+
+          <form id="form_cadastro" onsubmit="return salvaCadastro();">
+
+              <input class="campo primeiro" type="email" name="email" id="email" placeholder="E-mail" required />
+
+              <input class="campo" type="password" name="senha" id="senha" placeholder="Senha" pattern=".{5,10}" required />
+
+              <input class="campo" type="text" name="nome" id="nome" placeholder="Nome" required />
+
+              <input class="campo" type="hidden" name="cpf" id="cpf" placeholder="CPF" required />
+
+              <input class="campo" type="text" name="rg" id="rg" placeholder="RG" required />
+
+              <input class="campo" type="text" name="profissao" id="profissao" placeholder="Profissão" required />
+
+              <input class="campo" type="text" name="telefone" id="telefone" placeholder="Telefone" required />
+
+              <input class="campo" type="text" name="celular" id="celular" placeholder="Celular" required />
+
+              <input class="campo" type="text" name="cep" id="cep" placeholder="CEP" required />
+
+              <input class="campo" type="text" name="rua" id="rua" placeholder="Endereço" required />
+
+              <input class="campo" type="text" name="numero" id="numero" placeholder="Número" required />
+
+              <input class="campo" type="text" name="complemento" id="complemento" placeholder="Complemento" required />
+
+              <input class="campo" type="text" name="bairro" id="bairro" placeholder="Bairro" required />
+
+              <select name="estado" id="estado" class="campo">
+                    <option value="">Selecione um estado</option>
+                    <option value="Acre">Acre</option>
+                    <option value="Alagoas">Alagoas</option>
+                    <option value="Amapá">Amapá</option>
+                    <option value="Amazonas">Amazonas</option>
+                    <option value="Bahia">Bahia</option>
+                    <option value="Ceará">Ceará</option>
+                    <option value="Distrito Federal">Distrito Federal</option>
+                    <option value="Espírito Santo">Espirito Santo</option>
+                    <option value="Goiás">Goiás</option>
+                    <option value="Maranhão">Maranhão</option>
+                    <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                    <option value="Mato Grosso">Mato Grosso</option>
+                    <option value="Minas Gerais">Minas Gerais</option>
+                    <option value="Pará">Pará</option>
+                    <option value="Paraíba">Paraíba</option>
+                    <option value="Paraná">Paraná</option>
+                    <option value="Pernambuco">Pernambuco</option>
+                    <option value="Piauí">Piauí</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                    <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                    <option value="Rondônia">Rondônia</option>
+                    <option value="Roraima">Roraima</option>
+                    <option value="Santa Catarina">Santa Catarina</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Sergipe">Sergipe</option>
+                    <option value="Tocantins">Tocantins</option>
+                </select>
+
+              <input class="campo ultimo" type="text" name="cidade" id="cidade" placeholder="Cidade" required />
+
+              <button type="submit">Salvar</button>
+
+            </form>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+    
+</div>

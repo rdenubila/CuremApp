@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui=1">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>CUREM</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.min.css">
+    <link rel="stylesheet" href="icomoon/style.css">
+    <link rel="stylesheet" href="styles.css">
+
+  </head>
+  <body>
+
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+      <ul>
+        <li class="titulo">Navegação</li>
+        <li><a href="agenda.html" class="close-panel"><i class='icon-calendar'></i> Agenda</a></li>
+        <li><a href="dados.html" class="close-panel"><i class='icon-user'></i> Meus Dados</a></li>
+        <li><a href="compras.html" class="close-panel"><i class='icon-cart'></i> Minhas Compras</a></li>
+        <li><a href="javascript: logout(); void(0);" class="external"><i class='icon-sign-out'></i> Sair</a></li>
+      </ul>
+    </div>
+
+    <!-- Views-->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+
+        <!-- Top Navbar-->
+        <div class="navbar">
+        </div>
+
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through">
+          <div data-page="no-page" class="page">
+          </div>
+        </div>
+
+        <div class="login-screen modal-in tela_login">
+          
+          <div class="centraliza">
+            <img src="img/logo_curem.png" height="55" width="260">
+            <form id="form_login" onsubmit="return login();">
+
+              <input class="campo primeiro" type="email" name="email" id="email" placeholder="E-mail" required />
+              <input class="campo ultimo" type="password" name="senha" id="senha" placeholder="Senha" required />
+
+              <button type="submit">Entrar</button>
+
+            </form>
+          </div>
+
+          <div class="baixo">
+            <a href="#" data-popup=".popup-senha" class="open-popup">Esqueci a minha senha</a>
+            <a href="#" data-popup=".popup-cadastro" class="open-popup">Ainda não sou cadastrado. Quero me cadastrar</a>
+          </div>
+
+        </div>
+
+        <div class="popup-overlay"></div>
+
+        <div class="popup popup-senha tela_login">
+
+          <div class="centraliza">
+            <h2>Esqueci minha senha</h2>
+            <p>Digite seu e-mail no campo abaixo<br/> para recuperar sua senha:</p>
+            <form id="form_senha" onsubmit="return recuperarSenha();">
+              <input class="campo primeiro ultimo" type="email" name="email" id="email" placeholder="E-mail" required />
+
+              <button type="submit">Recuperar Senha</button>
+            </form>
+          </div>
+
+          <div class="baixo">
+            <a href="#" class="close-popup">Cancelar</a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="popup popup-cadastro tela_login">
+
+          <div class="padrao">
+            <h2>Cadastre-se</h2>
+            <p>Digite seus dados nos campos abaixo:</p>
+            <form id="form_cadastro" onsubmit="return salvaCadastro();">
+
+              <input class="campo primeiro" type="email" name="email" id="email" placeholder="E-mail" required onblur="pegaCadastro()" />
+
+              <input class="campo" type="password" name="senha" id="senha" placeholder="Senha" pattern=".{5,10}" required />
+
+              <input class="campo" type="text" name="nome" id="nome" placeholder="Nome" required />
+
+              <input class="campo" type="text" name="cpf" id="cpf" placeholder="CPF" required />
+
+              <input class="campo" type="text" name="rg" id="rg" placeholder="RG" required />
+
+              <input class="campo" type="text" name="profissao" id="profissao" placeholder="Profissão" required />
+
+              <input class="campo" type="text" name="telefone" id="telefone" placeholder="Telefone" required />
+
+              <input class="campo" type="text" name="celular" id="celular" placeholder="Celular" required />
+
+              <input class="campo" type="text" name="cep" id="cep" placeholder="CEP" required />
+
+              <input class="campo" type="text" name="rua" id="rua" placeholder="Endereço" required />
+
+              <input class="campo" type="text" name="numero" id="numero" placeholder="Número" required />
+
+              <input class="campo" type="text" name="complemento" id="complemento" placeholder="Complemento" required />
+
+              <input class="campo" type="text" name="bairro" id="bairro" placeholder="Bairro" required />
+
+              <select name="estado" id="estado" class="campo">
+                    <option value="">Selecione um estado</option>
+                    <option value="Acre">Acre</option>
+                    <option value="Alagoas">Alagoas</option>
+                    <option value="Amapá">Amapá</option>
+                    <option value="Amazonas">Amazonas</option>
+                    <option value="Bahia">Bahia</option>
+                    <option value="Ceará">Ceará</option>
+                    <option value="Distrito Federal">Distrito Federal</option>
+                    <option value="Espírito Santo">Espirito Santo</option>
+                    <option value="Goiás">Goiás</option>
+                    <option value="Maranhão">Maranhão</option>
+                    <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                    <option value="Mato Grosso">Mato Grosso</option>
+                    <option value="Minas Gerais">Minas Gerais</option>
+                    <option value="Pará">Pará</option>
+                    <option value="Paraíba">Paraíba</option>
+                    <option value="Paraná">Paraná</option>
+                    <option value="Pernambuco">Pernambuco</option>
+                    <option value="Piauí">Piauí</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                    <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                    <option value="Rondônia">Rondônia</option>
+                    <option value="Roraima">Roraima</option>
+                    <option value="Santa Catarina">Santa Catarina</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Sergipe">Sergipe</option>
+                    <option value="Tocantins">Tocantins</option>
+                </select>
+
+              <input class="campo ultimo" type="text" name="cidade" id="cidade" placeholder="Cidade" required />
+
+              <button type="submit">Cadastrar</button>
+
+            </form>
+
+            <a href="#" class="close-popup">Cancelar</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
+  </body>
+</html>
