@@ -5,6 +5,8 @@ var estaConectado = true;
 var dadosUsuario = null;
 var cursosOffline = [];
 
+var urlLocal = "cdvfile://localhost/persistent/";
+
 
 // TESTE LOCAL
 urlImages = "http://192.168.0.19/Curem/Novo_site/";
@@ -21,13 +23,10 @@ console.log("cursosOffline: ");
 console.log(cursosOffline);
 
 function addCursoOffline(id){
-	//cursosOffline = 
-	if( !jQuery.inArray( id, cursosOffline) ){
-		cursosOffline.push(id);
-		console.log("cursosOffline: ");
-		console.log(cursosOffline);
-		localStorage.setItem('cursosOffline', cursosOffline.join(","));
-	}
+	cursosOffline.push(id);
+	console.log("cursosOffline: ");
+	console.log(cursosOffline);
+	localStorage.setItem('cursosOffline', cursosOffline.join(","));
 }
 
 
@@ -387,7 +386,7 @@ function baixarConteudo(arquivo){
 	var fileName = arquivo.substr(arquivo.lastIndexOf('/')+1);
 	var fileTransfer = new FileTransfer();
 	var uri = encodeURI(arquivo);
-	var fileURL = "cdvfile://localhost/persistent/"+fileName;
+	var fileURL = urlLocal+fileName;
 
 	fileTransfer.download(
 	    uri,
