@@ -219,7 +219,7 @@ function paginaCarregada(app, page) {
 				}
 
 				if(offline && page.query.sub_id==null){
-					checaAtualzacaoConteudo(json.data.id, json.ultima_alteracao);
+					checaAtualzacaoConteudo(json.data.id, json.data.ultima_alteracao);
 				}
 
 				o.find(".subcats").html(html);
@@ -352,11 +352,11 @@ var ultima_alteracao;
 function checaAtualzacaoConteudo(id, data){
 	ultima_alteracao = data;
 	$.getJSON( url+"subcategoriasGet.php", {id: id} ).done(function( json ) {
-		console.log(json.ultima_alteracao + " - " +ultima_alteracao);
-		if(json.ultima_alteracao!=ultima_alteracao || json.ultima_alteracao==undefined){
+		console.log(json.data.ultima_alteracao + " - " +ultima_alteracao);
+		if(json.data.ultima_alteracao!=ultima_alteracao || json.data.ultima_alteracao==undefined){
 			alert("Precisa de alteração!");
 
-			html = "<p>Uma nova atualização desse conteúdo está disponível.</p>";
+			html = "<p><strong>Uma nova atualização desse conteúdo está disponível.</strong></p>";
 			html += "<p>";
 			html += "	<a href='javascript: tornarOffline("+d_curso.id+")' class='btn external'><i class='icon-cloud-download'></i> Atualizar conteúdo off-line</a>";
 			html += "</p>";
