@@ -62,4 +62,6 @@
     <preference name="permissions" value="none"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
 
+    <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.6" />
+
 </widget>

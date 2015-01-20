@@ -1,11 +1,24 @@
 
 var url = "http://localhost/Curem/Novo_site/lz-admin/api/";
 var urlImages = "http://localhost/Curem/Novo_site/";
+var estaConectado = true;
+var dadosUsuario = null;
+var cursosOffline = [];
 
+
+// TESTE LOCAL
 urlImages = "http://192.168.0.19/Curem/Novo_site/";
 url = "http://192.168.0.19/Curem/Novo_site/lz-admin/api/";
 
-var dadosUsuario = null;
+
+if(localStorage.getItem('cursosOffline')!="null" && localStorage.getItem('cursosOffline')!=null){
+	cursosOffline = JSON.parse(localStorage.getItem('cursosOffline'));
+} else {
+	//cursosOffline  = JSON.parse();
+}
+
+console.log("cursosOffline: ");
+console.log(cursosOffline);
 
 
 function ajustaImagens(el){
@@ -43,7 +56,7 @@ var mainView = myApp.addView('.view-main', {
 
 mainView.reloadPage("inicio.html");
 
-if(localStorage.getItem('usuarioLogado')!="null"){
+if(localStorage.getItem('usuarioLogado')!="null" && localStorage.getItem('usuarioLogado')!=null){
 	dadosUsuario = JSON.parse(localStorage.getItem('usuarioLogado'));
 	console.log("usuário logado: ");
 	console.log(dadosUsuario);
@@ -65,54 +78,71 @@ function retornaHtmlCursos(d, comprado){
 	return html;
 }
 
+function ajustaHome(data){
+	//CURSOS COMPRADOS
+	html = "";
+	for(i=0; i<data.length; i++){
+		d = data[i];
+		if(d.comprado){
+			html += retornaHtmlCursos(d, d.comprado);
+		}
+	}
+
+	$("#cursos_comprados div").remove();
+	$("#cursos_comprados").append(html);
+
+	if(html==""){
+		$("#cursos_comprados").append("<p style='text-align: center'>Você ainda não adquiriu nenhum curso</p>");
+	}
+
+
+	//CURSOS PARA COMPRA
+	html = "";
+	for(i=0; i<data.length; i++){
+		d = data[i];
+		if(!d.comprado){
+			html += retornaHtmlCursos(d);
+		}
+	}
+
+	$("#cursos_disponiveis div").remove();
+	$("#cursos_disponiveis").append(html);
+
+	if(html==""){
+		$("#cursos_disponiveis").remove();
+	}
+}
+
 function paginaCarregada(app, page) {
 
     if (page.name === 'home') {
 
-		$.getJSON( url+"categoriasGet.php", {id_user: dadosUsuario.id} ).done(function( json ) {
-			if(json.success == true){
+    	if(estaConectado){
 
-				data = json.data;
+    		$.getJSON( url+"categoriasGet.php", {id_user: dadosUsuario.id} ).done(function( json ) {
+				if(json.success == true){
 
-				//CURSOS COMPRADOS
-				html = "";
-				for(i=0; i<data.length; i++){
-					d = data[i];
-					if(d.comprado){
-						html += retornaHtmlCursos(d, d.comprado);
-					}
+					ajustaHome(json.data);
+
+					localStorage.setItem('categoriasGet', JSON.stringify(json.data));
+
 				}
 
-				$("#cursos_comprados div").remove();
-				$("#cursos_comprados").append(html);
+			}).fail(function( jqxhr, textStatus, error ) {
+				alert("ERRO: "+textStatus);
+			});
 
-				if(html==""){
-					$("#cursos_comprados").append("<p style='text-align: center'>Você ainda não adquiriu nenhum curso</p>");
-				}
+    	} else {
+    		if(localStorage.getItem('categoriasGet')!=null && localStorage.getItem('categoriasGet')!="null"){
+    			data = JSON.parse(localStorage.getItem('categoriasGet'));
+    			ajustaHome(data);
+    		} else {
+    			alert("Você deve estar conectado para acessar o aplicativo");
+    		}
 
+    	}
 
-				//CURSOS PARA COMPRA
-				html = "";
-				for(i=0; i<data.length; i++){
-					d = data[i];
-					if(!d.comprado){
-						html += retornaHtmlCursos(d);
-					}
-				}
-
-				$("#cursos_disponiveis div").remove();
-				$("#cursos_disponiveis").append(html);
-
-				if(html==""){
-					$("#cursos_disponiveis").remove();
-				}
-
-
-			}
-
-		}).fail(function( jqxhr, textStatus, error ) {
-			alert("ERRO: "+textStatus);
-		});
+		
 
     }
 
@@ -144,7 +174,16 @@ function paginaCarregada(app, page) {
 					html += "	<span class=\"txt\">"+d.titulo+"</span>";
 					html += "</a>";
 				}
-				o.find(".subcats").html(html);
+
+
+				//ADICIONA BOTÃO PARA ACESSAR OFFLINE
+				if(estaConectado && page.query.sub_id==null){
+					html += "<p>";
+					html += "	<a href='javascript: tornarOffline("+d_curso.id+")' class='btn external'><i class='icon-cloud-download'></i> Tornar conteúdo off-line</a>";
+					html += "</p>";
+
+					o.find(".subcats").html(html);				
+				}
 
 				ajustaImagens(o);
 			} else {
@@ -267,6 +306,91 @@ function paginaCarregada(app, page) {
 		});
 	}
 
+}
+
+var DownloadFiles;
+var indexDownload = 0;
+function tornarOffline(id_curso){
+	
+	myApp.popup(".popup-download");
+
+	indexDownload = 0;
+
+	$.getJSON( url+"arquivosGet.php", { id: id_curso} ).done(function( json ) {
+
+		if(json.success == true){
+
+			data = json.data;
+    		html = "";
+			for(i=0; i<data.length; i++){
+				d = data[i];
+
+				var urlToFile;
+				switch(d.tipo){
+					case "json":
+						urlToFile = url+"json/";
+						break;
+
+					default:
+						urlToFile = urlImages;		
+						break;				
+
+				}
+				
+
+				d.fileURL = urlToFile+d.file;
+				
+			}
+
+			DownloadFiles = data;
+			baixarConteudoControle();
+
+		}
+
+		
+
+	}).fail(function( jqxhr, textStatus, error ) {
+		console.log("ERRO: "+error);
+	});
+}
+
+function baixarConteudoControle(){
+	if(indexDownload<DownloadFiles.length){
+		baixarConteudo(DownloadFiles[i].fileURL);
+	}
+
+	p = DownloadFiles.length/indexDownload*100;
+	$(".progress-bar div").css("style", "width: "+p+"%")
+
+	i++;
+}
+
+function baixarConteudo(arquivo){
+
+	var fileName = arquivo.substr(arquivo.lastIndexOf('/')+1);
+
+	var fileTransfer = new FileTransfer();
+	var uri = encodeURI(arquivo);
+
+	var fileURL = "cdvfile://localhost/persistent/"+fileName;
+
+	fileTransfer.download(
+	    uri,
+	    fileURL,
+
+	    function(entry) {
+	        alert("download complete: " + entry.toURL());
+	        baixarConteudoControle();
+	    },
+
+	    function(error) {
+	        alert("download error source " + error.source);
+	        alert("download error target " + error.target);
+	        alert("upload error code" + error.code);
+	    },
+
+	    true
+	);
 }
 
 

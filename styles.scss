@@ -329,3 +329,17 @@ table {
 	}
 
 }
+
+.progress-bar {
+	width: 100%;
+	height: 5px;
+	background: rgba(white, .2);
+	border-radius: 5px;
+	overflow: hidden;
+
+	div {
+		width: 0%;
+		height: 5px;
+		background: white;
+	}
+}
