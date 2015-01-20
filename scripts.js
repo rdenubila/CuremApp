@@ -35,6 +35,7 @@ function addCursoOffline(id){
 function ajustaImagens(el, offline){
 
 	urlCorrigida = offline ? urlLocal : urlImages;
+	console.log("Ajusta imagens: "+urlCorrigida);
 
 	el.find("img").each(function(index, el) {
 		$(this).attr('src', urlCorrigida+$(this).attr('src'));
