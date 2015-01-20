@@ -162,7 +162,7 @@ function paginaCarregada(app, page) {
 
     	o = $(page.container);
 
-    	if( jQuery.inArray( id, cursosOffline) < 0 ){
+    	if( jQuery.inArray( page.query.id, cursosOffline) < 0 ){
     		urlJson = url+"subcategoriasGet.php";
     	} else {
 			urlJson = urlLocal+"appsub_"+page.query.id+".json";
