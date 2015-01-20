@@ -165,7 +165,11 @@ function paginaCarregada(app, page) {
     	if( jQuery.inArray( page.query.id, cursosOffline) < 0 ){
     		urlJson = url+"subcategoriasGet.php";
     	} else {
-			urlJson = urlLocal+"appsub_"+page.query.id+".json";
+    		if(page.query.sub_id==null || page.query.sub_id=="null"){
+    			urlJson = urlLocal+"appsub_"+page.query.id+".json";
+    		} else {
+    			urlJson = urlLocal+"appsub_"+page.query.id+"_"+page.query.sub_id+".json";
+    		}
     	}
     	
     	console.log(urlJson);
