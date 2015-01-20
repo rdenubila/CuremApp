@@ -12,13 +12,23 @@ url = "http://192.168.0.19/Curem/Novo_site/lz-admin/api/";
 
 
 if(localStorage.getItem('cursosOffline')!="null" && localStorage.getItem('cursosOffline')!=null){
-	cursosOffline = JSON.parse(localStorage.getItem('cursosOffline'));
+	cursosOffline = localStorage.getItem('cursosOffline').split(",");
 } else {
 	//cursosOffline  = JSON.parse();
 }
 
 console.log("cursosOffline: ");
 console.log(cursosOffline);
+
+function addCursoOffline(id){
+	//cursosOffline = 
+	if( !jQuery.inArray( id, cursosOffline) ){
+		cursosOffline.push(id);
+		console.log("cursosOffline: ");
+		console.log(cursosOffline);
+		localStorage.setItem('cursosOffline', cursosOffline.join(","));
+	}
+}
 
 
 function ajustaImagens(el){
@@ -362,10 +372,10 @@ function baixarConteudoControle(){
 		baixarConteudo(DownloadFiles[indexDownload].fileURL);
 	} else {
 		alert("O conteúdo foi baixado com sucesso!");
-		alert(dowloadingCurso);
+		addCursoOffline(dowloadingCurso);
 	}
 
-	p = DownloadFiles.length/indexDownload*100;
+	p = indexDownload/DownloadFiles.length*100;
 	console.log(p);
 	$(".progress-bar div").css("width", p+"%")
 
