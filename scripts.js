@@ -181,8 +181,6 @@ function paginaCarregada(app, page) {
     			urlJson = urlLocal+"appsub_"+page.query.id+"_"+page.query.sub_id+".json";
     		}
     	}
-    	
-    	console.log(urlJson);
 
 
     	$.getJSON( urlJson, page.query ).done(function( json ) {
@@ -357,8 +355,18 @@ function checaAtualzacaoConteudo(id, data){
 		console.log(json.ultima_alteracao + " - " +ultima_alteracao);
 		if(json.ultima_alteracao!=ultima_alteracao){
 			alert("Precisa de alteração!");
+
+			html = "<p>Uma nova atualização desse conteúdo está disponível.</p>";
+			html += "<p>";
+			html += "	<a href='javascript: tornarOffline("+d_curso.id+")' class='btn external'><i class='icon-cloud-download'></i> Atualizar conteúdo off-line</a>";
+			html += "</p>";
+
+			$(".texto").append(html);
+
 		}
-	}
+	}).fail(function( jqxhr, textStatus, error ) {
+		console.log("ERRO: "+error);
+	});
 }
 
 var DownloadFiles;
