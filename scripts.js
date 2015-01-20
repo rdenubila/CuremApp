@@ -23,10 +23,12 @@ console.log("cursosOffline: ");
 console.log(cursosOffline);
 
 function addCursoOffline(id){
-	cursosOffline.push(id);
-	console.log("cursosOffline: ");
-	console.log(cursosOffline);
-	localStorage.setItem('cursosOffline', cursosOffline.join(","));
+	if( jQuery.inArray( id, cursosOffline) < 0 ){
+		cursosOffline.push(id);
+		console.log("cursosOffline: ");
+		console.log(cursosOffline);
+		localStorage.setItem('cursosOffline', cursosOffline.join(","));
+	}
 }
 
 
@@ -160,9 +162,16 @@ function paginaCarregada(app, page) {
 
     	o = $(page.container);
 
-    	console.log( url+"subcategoriasGet.php?"+$.param( page.query ) );
+    	if( jQuery.inArray( id, cursosOffline) < 0 ){
+    		urlJson = url+"subcategoriasGet.php";
+    	} else {
+			urlJson = urlLocal+"appsub_"+page.query.id+".json";
+    	}
+    	
+    	console.log(urlJson);
 
-    	$.getJSON( url+"subcategoriasGet.php", page.query ).done(function( json ) {
+
+    	$.getJSON( urlJson, page.query ).done(function( json ) {
     		console.log(json);
     		if(json.success == true){
     			d_curso = json.data;
