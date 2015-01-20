@@ -19,8 +19,6 @@ if(localStorage.getItem('cursosOffline')!="null" && localStorage.getItem('cursos
 	//cursosOffline  = JSON.parse();
 }
 
-console.log("cursosOffline: ");
-console.log(cursosOffline);
 
 function addCursoOffline(id){
 	if( jQuery.inArray( id, cursosOffline) < 0 ){
@@ -35,10 +33,15 @@ function addCursoOffline(id){
 function ajustaImagens(el, offline){
 
 	urlCorrigida = offline ? urlLocal : urlImages;
-	console.log("Ajusta imagens: "+urlCorrigida);
 
 	el.find("img").each(function(index, el) {
-		$(this).attr('src', urlCorrigida+$(this).attr('src'));
+		
+		if(offline){
+			$(this).attr('src', urlCorrigida+$(this).attr('src').replace("uploads/", "") );
+		} else {
+			$(this).attr('src', urlCorrigida+$(this).attr('src'));
+		}
+
 		$(this).attr('width', "100%")
 		$(this).removeAttr('height')
 	});
