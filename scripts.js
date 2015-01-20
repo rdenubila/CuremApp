@@ -181,6 +181,7 @@ function paginaCarregada(app, page) {
     	$.getJSON( urlJson, page.query ).done(function( json ) {
     		
     		offline = jQuery.inArray( json.data.id, cursosOffline) >= 0;
+    		console.log("offline: "+offline);
 
     		if(json.success == true){
     			d_curso = json.data;
@@ -194,6 +195,10 @@ function paginaCarregada(app, page) {
 
     		if(json.data.comprado || offline){
 	    		data = json.data.subcapitulos;
+
+	    		console.log("Subcapitulos:")
+	    		console.log(data);
+
 	    		html = "";
 				for(i=0; i<data.length; i++){
 					d = data[i];
