@@ -196,9 +196,6 @@ function paginaCarregada(app, page) {
     		if(json.data.comprado || offline){
 	    		data = json.data.subcapitulos;
 
-	    		console.log("Subcapitulos:")
-	    		console.log(data);
-
 	    		html = "";
 				for(i=0; i<data.length; i++){
 					d = data[i];
@@ -207,17 +204,19 @@ function paginaCarregada(app, page) {
 					html += "</a>";
 				}
 
-
 				//ADICIONA BOTÃO PARA ACESSAR OFFLINE
 				if(!offline && estaConectado && page.query.sub_id==null){
 					html += "<p>";
 					html += "	<a href='javascript: tornarOffline("+d_curso.id+")' class='btn external'><i class='icon-cloud-download'></i> Tornar conteúdo off-line</a>";
 					html += "</p>";
 
-					o.find(".subcats").html(html);				
+								
 				}
 
+				o.find(".subcats").html(html);
+
 				ajustaImagens(o, offline);
+				
 			} else {
 
 				html = "";
