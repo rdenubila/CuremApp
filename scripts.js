@@ -377,11 +377,12 @@ function baixarConteudo(arquivo){
 
 	var fileName = arquivo.substr(arquivo.lastIndexOf('/')+1);
 
+	alert("nome: "+fileName);
+
 	var fileTransfer = new FileTransfer();
 	var uri = encodeURI(arquivo);
 
 
-	alert("nome: "+fileName);
 	alert("uri: "+uri);
 
 	var fileURL = "cdvfile://localhost/persistent/"+fileName;
@@ -506,6 +507,10 @@ function recuperarSenha(){
 
 
 // EVENTOS
+
+document.addEventListener("deviceready", function(){
+	alert("Aplicativo inicializado!");
+}, false);
 
 document.addEventListener("backbutton", function(){
 	alert("Voltar");
