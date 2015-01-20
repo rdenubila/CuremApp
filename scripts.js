@@ -32,10 +32,12 @@ function addCursoOffline(id){
 }
 
 
-function ajustaImagens(el){
+function ajustaImagens(el, offline){
+
+	urlCorrigida = offline ? urlLocal : urlImages;
 
 	el.find("img").each(function(index, el) {
-		$(this).attr('src', urlImages+$(this).attr('src'));
+		$(this).attr('src', urlCorrigida+$(this).attr('src'));
 		$(this).attr('width', "100%")
 		$(this).removeAttr('height')
 	});
@@ -45,7 +47,7 @@ function ajustaImagens(el){
 	});
 
 	el.find("video source").each(function(index, el) {
-		$(this).attr('src', urlImages+$(this).attr('src'));
+		$(this).attr('src', urlCorrigida+$(this).attr('src'));
 	});
 
 }
@@ -209,7 +211,7 @@ function paginaCarregada(app, page) {
 					o.find(".subcats").html(html);				
 				}
 
-				ajustaImagens(o);
+				ajustaImagens(o, offline);
 			} else {
 
 				html = "";
