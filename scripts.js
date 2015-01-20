@@ -180,7 +180,7 @@ function paginaCarregada(app, page) {
 
     	$.getJSON( urlJson, page.query ).done(function( json ) {
     		
-    		offline = jQuery.inArray( json.data.id, cursosOffline) < 0;
+    		offline = jQuery.inArray( json.data.id, cursosOffline) >= 0;
 
     		if(json.success == true){
     			d_curso = json.data;
