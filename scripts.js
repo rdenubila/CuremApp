@@ -373,6 +373,8 @@ function baixarConteudoControle(){
 
 function baixarConteudo(arquivo){
 
+	alert("arquivo: "+arquivo);
+
 	var fileName = arquivo.substr(arquivo.lastIndexOf('/')+1);
 
 	var fileTransfer = new FileTransfer();
