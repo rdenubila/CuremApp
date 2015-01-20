@@ -51,7 +51,11 @@ function ajustaImagens(el, offline){
 	});
 
 	el.find("video source").each(function(index, el) {
-		$(this).attr('src', urlCorrigida+$(this).attr('src'));
+		if(offline){
+			$(this).attr('src', urlCorrigida+$(this).attr('src').replace("uploads/", "") );
+		} else {
+			$(this).attr('src', urlCorrigida+$(this).attr('src'));
+		}
 	});
 
 }
@@ -216,10 +220,14 @@ function paginaCarregada(app, page) {
 								
 				}
 
+				if(offline && page.query.sub_id==null){
+					checaAtualzacaoConteudo(json.data.id, json.ultima_alteracao);
+				}
+
 				o.find(".subcats").html(html);
 
 				ajustaImagens(o, offline);
-				
+
 			} else {
 
 				html = "";
@@ -340,6 +348,17 @@ function paginaCarregada(app, page) {
 		});
 	}
 
+}
+
+var ultima_alteracao;
+function checaAtualzacaoConteudo(id, data){
+	ultima_alteracao = data;
+	$.getJSON( url+"subcategoriasGet.php", {id: id} ).done(function( json ) {
+		console.log(json.ultima_alteracao + " - " +ultima_alteracao);
+		if(json.ultima_alteracao!=ultima_alteracao){
+			alert("Precisa de alteração!");
+		}
+	}
 }
 
 var DownloadFiles;
