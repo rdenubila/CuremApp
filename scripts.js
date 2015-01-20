@@ -176,7 +176,9 @@ function paginaCarregada(app, page) {
 
 
     	$.getJSON( urlJson, page.query ).done(function( json ) {
-    		console.log(json);
+    		
+    		offline = jQuery.inArray( json.data.id, cursosOffline) < 0;
+
     		if(json.success == true){
     			d_curso = json.data;
     			o.find(".titulo").html(d_curso.titulo);
@@ -187,7 +189,7 @@ function paginaCarregada(app, page) {
     			}
     		}
 
-    		if(json.data.comprado){
+    		if(json.data.comprado || offline){
 	    		data = json.data.subcapitulos;
 	    		html = "";
 				for(i=0; i<data.length; i++){
@@ -199,7 +201,7 @@ function paginaCarregada(app, page) {
 
 
 				//ADICIONA BOTÃO PARA ACESSAR OFFLINE
-				if(estaConectado && page.query.sub_id==null){
+				if(!offline && estaConectado && page.query.sub_id==null){
 					html += "<p>";
 					html += "	<a href='javascript: tornarOffline("+d_curso.id+")' class='btn external'><i class='icon-cloud-download'></i> Tornar conteúdo off-line</a>";
 					html += "</p>";
