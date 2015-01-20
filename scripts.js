@@ -310,7 +310,10 @@ function paginaCarregada(app, page) {
 
 var DownloadFiles;
 var indexDownload = 0;
+var dowloadingCurso = 0;
 function tornarOffline(id_curso){
+
+	dowloadingCurso = id_curso;
 	
 	myApp.popup(".popup-download");
 
@@ -356,13 +359,17 @@ function tornarOffline(id_curso){
 
 function baixarConteudoControle(){
 	if(indexDownload<DownloadFiles.length){
-		baixarConteudo(DownloadFiles[i].fileURL);
+		alert("Baixado: "+DownloadFiles[indexDownload].fileURL)
+		baixarConteudo(DownloadFiles[indexDownload].fileURL);
+	} else {
+		alert("O conteúdo foi baixado com sucesso!");
+		alert(dowloadingCurso);
 	}
 
 	p = DownloadFiles.length/indexDownload*100;
 	$(".progress-bar div").css("style", "width: "+p+"%")
 
-	i++;
+	indexDownload++;
 }
 
 function baixarConteudo(arquivo){
