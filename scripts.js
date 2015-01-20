@@ -359,7 +359,6 @@ function tornarOffline(id_curso){
 
 function baixarConteudoControle(){
 	if(indexDownload<DownloadFiles.length){
-		alert("Baixado: "+DownloadFiles[indexDownload].fileURL)
 		baixarConteudo(DownloadFiles[indexDownload].fileURL);
 	} else {
 		alert("O conteúdo foi baixado com sucesso!");
@@ -378,6 +377,10 @@ function baixarConteudo(arquivo){
 
 	var fileTransfer = new FileTransfer();
 	var uri = encodeURI(arquivo);
+
+
+	alert("nome: "+fileName);
+	alert("uri: "+uri);
 
 	var fileURL = "cdvfile://localhost/persistent/"+fileName;
 
