@@ -353,7 +353,7 @@ function checaAtualzacaoConteudo(id, data){
 	ultima_alteracao = data;
 	$.getJSON( url+"subcategoriasGet.php", {id: id} ).done(function( json ) {
 		console.log(json.ultima_alteracao + " - " +ultima_alteracao);
-		if(json.ultima_alteracao!=ultima_alteracao){
+		if(json.ultima_alteracao!=ultima_alteracao || json.ultima_alteracao==undefined){
 			alert("Precisa de alteração!");
 
 			html = "<p>Uma nova atualização desse conteúdo está disponível.</p>";
