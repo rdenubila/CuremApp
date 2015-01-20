@@ -354,12 +354,11 @@ function checaAtualzacaoConteudo(id, data){
 	$.getJSON( url+"subcategoriasGet.php", {id: id} ).done(function( json ) {
 		console.log(json.data.ultima_alteracao + " - " +ultima_alteracao);
 		if(json.data.ultima_alteracao!=ultima_alteracao || json.data.ultima_alteracao==undefined){
-			alert("Precisa de alteração!");
 
-			html = "<p><strong>Uma nova atualização desse conteúdo está disponível.</strong></p>";
+			html = "<div id='btn_atualizacao'><p><strong>Uma nova atualização desse conteúdo está disponível.</strong></p>";
 			html += "<p>";
 			html += "	<a href='javascript: tornarOffline("+d_curso.id+")' class='btn external'><i class='icon-cloud-download'></i> Atualizar conteúdo off-line</a>";
-			html += "</p>";
+			html += "</p></div>";
 
 			$(".texto").append(html);
 
@@ -424,10 +423,11 @@ function baixarConteudoControle(){
 	} else {
 		alert("O conteúdo foi baixado com sucesso!");
 		addCursoOffline(dowloadingCurso);
+		$("#btn_atualizacao").remove();
+		myApp.closeModal(".popup-download");
 	}
 
 	p = indexDownload/DownloadFiles.length*100;
-	console.log(p);
 	$(".progress-bar div").css("width", p+"%")
 
 	indexDownload++;
