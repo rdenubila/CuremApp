@@ -366,25 +366,17 @@ function baixarConteudoControle(){
 	}
 
 	p = DownloadFiles.length/indexDownload*100;
-	$(".progress-bar div").css("style", "width: "+p+"%")
+	console.log(p);
+	$(".progress-bar div").css("width", p+"%")
 
 	indexDownload++;
 }
 
 function baixarConteudo(arquivo){
 
-	alert("arquivo: "+arquivo);
-
 	var fileName = arquivo.substr(arquivo.lastIndexOf('/')+1);
-
-	alert("nome: "+fileName);
-
 	var fileTransfer = new FileTransfer();
 	var uri = encodeURI(arquivo);
-
-
-	alert("uri: "+uri);
-
 	var fileURL = "cdvfile://localhost/persistent/"+fileName;
 
 	fileTransfer.download(
@@ -392,7 +384,6 @@ function baixarConteudo(arquivo){
 	    fileURL,
 
 	    function(entry) {
-	        alert("download complete: " + entry.toURL());
 	        baixarConteudoControle();
 	    },
 
@@ -509,11 +500,9 @@ function recuperarSenha(){
 // EVENTOS
 
 document.addEventListener("deviceready", function(){
-	alert("Aplicativo inicializado!");
 }, false);
 
 document.addEventListener("backbutton", function(){
-	alert("Voltar");
 	mainView.router.back();
 }, false);
 
