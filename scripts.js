@@ -75,8 +75,6 @@ var mainView = myApp.addView('.view-main', {
     url: "inicio.html"
 });
 
-mainView.reloadPage("inicio.html");
-
 if(localStorage.getItem('usuarioLogado')!="null" && localStorage.getItem('usuarioLogado')!=null){
 	dadosUsuario = JSON.parse(localStorage.getItem('usuarioLogado'));
 	console.log("usuário logado: ");
@@ -92,7 +90,7 @@ if( $(window).width()<640 ){
 function retornaHtmlCursos(d, comprado){
 	html = "";
 	html += "<a href='capitulos.html?id="+d.id+"&id_user="+dadosUsuario.id+"' class=\"item cursos\">";
-	html += "	<span class=\"thumb\" style=\"background-image: url('http://www.curem.com.br/arquivos/img_6105.JPG');\"></span>";
+	html += "	<span class=\"thumb\" style=\"background-image: url('"+urlImages+"arquivos/"+d.img+"');\"></span>";
 	html += "	<span class=\"txt\">"+d.titulo+"</span>";
 	html += "</a>";
 
@@ -560,13 +558,27 @@ function recuperarSenha(){
 
 // EVENTOS
 
+document.addEventListener("online", onOnline, false);
+document.addEventListener("offline", onOffline, false);
+
 document.addEventListener("deviceready", function(){
+	mainView.reloadPage("inicio.html");
 }, false);
 
 document.addEventListener("backbutton", function(){
 	mainView.router.back();
 }, false);
 
+
+function onOnline() {
+	estaConectado = true;
+	console.log("onOnline");
+}
+
+function onOffline() {
+	estaConectado = false;
+	console.log("onOffline");
+}
 
 
 $( document ).ready(function() {
