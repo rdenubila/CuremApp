@@ -470,6 +470,8 @@ function login(){
 
 		localStorage.setItem('usuarioLogado', JSON.stringify(dadosUsuario));
 
+		mainView.reloadPage("inicio.html");
+
 		myApp.hideIndicator();
 		myApp.closeModal(".login-screen");
 
@@ -560,7 +562,9 @@ document.addEventListener("online", onOnline, false);
 document.addEventListener("offline", onOffline, false);
 
 document.addEventListener("deviceready", function(){
-	mainView.reloadPage("inicio.html");
+	if(dadosUsuario!=null){
+		mainView.reloadPage("inicio.html");
+	}
 }, false);
 
 document.addEventListener("backbutton", function(){
