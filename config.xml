@@ -63,6 +63,7 @@
     <feature name="http://api.phonegap.com/1.0/network"/>
     <feature name="http://api.phonegap.com/1.0/file" />
 
+    <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
     <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.6" />
     <gap:plugin name="com.jamiestarke.webviewdebug" version="1.0.8" />
 
