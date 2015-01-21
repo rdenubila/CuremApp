@@ -231,7 +231,7 @@ function paginaCarregada(app, page) {
 
 				html += "	<h2>Compre o curso</h2>";
 				html += "	<p><i class='icon-price-tag'></i> Preço: "+d_curso.preco_formatado+"</p>";
-				html += "	<p><a href='"+url+"cursoComprar.php?id_curso="+d_curso.id+"&id_user="+dadosUsuario.id+"' target='_system' class='btn external'><i class='icon-cart'></i> Comprar</a></p>";
+				html += "	<p><a href='javascript: window.open(\""+url+"cursoComprar.php?id_curso="+d_curso.id+"&id_user="+dadosUsuario.id+"\", \"_system\")' class='btn external'><i class='icon-cart'></i> Comprar</a></p>";
 				
 				html += "</div>";
 
