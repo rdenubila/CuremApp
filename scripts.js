@@ -466,14 +466,14 @@ function login(){
 
 	$.getJSON( url+"loginGet.php?"+$('#form_login').serialize() ).done(function( json ) {
 
-		var dadosUsuario = json.data;
+		dadosUsuario = json.data;
 
 		localStorage.setItem('usuarioLogado', JSON.stringify(dadosUsuario));
 
-		mainView.reloadPage("inicio.html");
-
 		myApp.hideIndicator();
 		myApp.closeModal(".login-screen");
+
+		mainView.reloadPage("inicio.html");
 
 	}).fail(function( jqxhr, textStatus, error ) {
 		console.log("ERRO: "+error);
