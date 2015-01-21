@@ -235,7 +235,7 @@ function paginaCarregada(app, page) {
 				
 				html += "</div>";
 
-				o.find(".subcats").parent().html(html);
+				o.find(".subcats").parent().append(html);
 			}
 
     	}).fail(function( jqxhr, textStatus, error ) {
