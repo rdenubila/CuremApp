@@ -379,6 +379,8 @@ function tornarOffline(id_curso){
 
 	indexDownload = 0;
 
+	console.log(url+"arquivosGet.php?id="+id_curso)
+
 	$.getJSON( url+"arquivosGet.php", { id: id_curso} ).done(function( json ) {
 
 		if(json.success == true){
