@@ -3,7 +3,7 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "com.Lazuli.Curem"
         versionCode = "1" 
-        version     = "0.1" >
+        version     = "0.2" >
 
 
     <name>CUREM</name>

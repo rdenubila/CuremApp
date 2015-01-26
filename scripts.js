@@ -12,6 +12,10 @@ var urlLocal = "cdvfile://localhost/persistent/";
 urlImages = "http://192.168.0.19/Curem/Novo_site/";
 url = "http://192.168.0.19/Curem/Novo_site/lz-admin/api/";
 
+// ONLINE
+urlImages = "http://www.curem.com.br/";
+url = "http://www.curem.com.br/lz-admin/api/";
+
 
 if(localStorage.getItem('cursosOffline')!="null" && localStorage.getItem('cursosOffline')!=null){
 	cursosOffline = localStorage.getItem('cursosOffline').split(",");
